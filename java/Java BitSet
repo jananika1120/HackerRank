@@ -1,0 +1,47 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        // Check if input exists to avoid NoSuchElementException
+        if (!sc.hasNextInt()) return;
+        
+        int n = sc.nextInt(); // Length of BitSets
+        int m = sc.nextInt(); // Number of operations
+        
+        // Use size 3 to allow bitsets[1] and bitsets[2] to match input indices
+        BitSet[] bitsets = new BitSet[3];
+        bitsets[1] = new BitSet(n);
+        bitsets[2] = new BitSet(n);
+        
+        while (m-- > 0) {
+            String op = sc.next();
+            int x = sc.nextInt();
+            int y = sc.nextInt();
+            
+            switch (op) {
+                case "AND":
+                    bitsets[x].and(bitsets[y]);
+                    break;
+                case "OR":
+                    bitsets[x].or(bitsets[y]);
+                    break;
+                case "XOR":
+                    bitsets[x].xor(bitsets[y]);
+                    break;
+                case "FLIP":
+                    bitsets[x].flip(y);
+                    break;
+                case "SET":
+                    bitsets[x].set(y);
+                    break;
+            }
+            
+            // Output cardinality of B1 and B2 after each operation
+            System.out.println(bitsets[1].cardinality() + " " + bitsets[2].cardinality());
+        }
+        sc.close();
+    }
+}
